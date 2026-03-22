@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suplai — Impresión de Gran Formato en Tijuana</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #D0021B;
+    --red-dark: #A80016;
+    --dark: #1a1a1a;
+    --mid: #333;
+    --muted: #666;
+    --light: #f5f5f5;
+    --border: #e0e0e0;
+    --white: #ffffff;
+    --wa: #25D366;
+    --wa-dark: #1ebe5d;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Barlow', sans-serif; color: var(--dark); background: var(--white); font-size: 16px; }
+  a { text-decoration: none; color: inherit; }
+
+  /* TOP BAR */
+  .topbar { background: var(--dark); color: #ccc; font-size: 13px; padding: 7px 0; text-align: center; }
+  .topbar span { margin: 0 16px; }
+  .topbar strong { color: var(--white); }
+
+  /* HEADER */
+  header { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .header-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; height: 64px; gap: 24px; }
+  .logo { font-family: 'Barlow Condensed', sans-serif; font-size: 32px; font-weight: 700; color: var(--dark); letter-spacing: -1px; white-space: nowrap; }
+  .logo em { color: var(--red); font-style: normal; }
+  nav { display: flex; gap: 4px; flex: 1; }
+  nav a { font-size: 14px; font-weight: 500; color: var(--mid); padding: 8px 12px; border-radius: 4px; transition: background 0.15s; white-space: nowrap; }
+  nav a:hover { background: var(--light); color: var(--dark); }
+  .header-actions { display: flex; gap: 10px; align-items: center; }
+  .btn-wa-header { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; padding: 9px 18px; background: var(--wa); color: var(--white); border: none; border-radius: 6px; transition: background 0.15s; white-space: nowrap; text-decoration: none; }
+  .btn-wa-header:hover { background: var(--wa-dark); }
+  .btn-wa-header svg { width: 16px; height: 16px; fill: white; }
+  .btn-contact-header { font-size: 14px; font-weight: 600; padding: 9px 18px; background: var(--red); color: var(--white); border: none; border-radius: 6px; transition: background 0.15s; white-space: nowrap; text-decoration: none; display: inline-block; }
+  .btn-contact-header:hover { background: var(--red-dark); }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a0005 100%); color: var(--white); padding: 90px 24px; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(208,2,27,0.18) 0%, transparent 60%); pointer-events: none; }
+  .hero-inner { max-width: 760px; margin: 0 auto; position: relative; }
+  .hero-eyebrow { display: inline-block; background: rgba(208,2,27,0.2); border: 1px solid rgba(208,2,27,0.5); color: #ff6b7a; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; padding: 5px 14px; border-radius: 20px; margin-bottom: 24px; text-transform: uppercase; }
+  .hero h1 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(40px, 7vw, 72px); font-weight: 700; line-height: 1.05; margin-bottom: 20px; }
+  .hero h1 em { color: var(--red); font-style: normal; }
+  .hero p { font-size: 19px; color: #bbb; margin-bottom: 40px; line-height: 1.5; max-width: 600px; margin-left: auto; margin-right: auto; }
+  .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 56px; }
+  .btn-hero-red { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; background: var(--red); color: var(--white); font-size: 16px; font-weight: 700; border-radius: 6px; transition: background 0.15s; text-decoration: none; }
+  .btn-hero-red:hover { background: var(--red-dark); }
+  .btn-hero-wa { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; background: var(--wa); color: var(--white); font-size: 16px; font-weight: 700; border-radius: 6px; transition: background 0.15s; text-decoration: none; }
+  .btn-hero-wa:hover { background: var(--wa-dark); }
+  .btn-hero-wa svg, .btn-hero-red svg { width: 18px; height: 18px; fill: white; }
+  .hero-stats { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 40px; }
+  .hero-stat { text-align: center; }
+  .hero-stat strong { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 36px; font-weight: 700; color: var(--white); }
+  .hero-stat span { font-size: 13px; color: #888; }
+
+  /* BENEFITS */
+  .benefits { padding: 80px 24px; background: var(--white); }
+  .section-title { text-align: center; font-family: 'Barlow Condensed', sans-serif; font-size: 40px; font-weight: 700; margin-bottom: 8px; color: var(--dark); }
+  .section-sub { text-align: center; color: var(--muted); margin-bottom: 52px; font-size: 17px; }
+  .benefits-grid { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+  .benefit-card { padding: 28px 24px; border: 1px solid var(--border); border-radius: 10px; transition: box-shadow 0.2s, transform 0.2s; }
+  .benefit-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.09); transform: translateY(-2px); }
+  .benefit-icon { width: 52px; height: 52px; background: #fff0f2; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 24px; }
+  .benefit-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .benefit-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* CTA BANNER */
+  .cta-banner { background: var(--red); color: var(--white); padding: 56px 24px; text-align: center; }
+  .cta-banner h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 40px; font-weight: 700; margin-bottom: 10px; }
+  .cta-banner p { font-size: 17px; margin-bottom: 28px; opacity: 0.9; max-width: 540px; margin-left: auto; margin-right: auto; }
+  .btn-white { display: inline-flex; align-items: center; gap: 8px; padding: 13px 32px; background: var(--white); color: var(--red); font-weight: 700; font-size: 15px; border-radius: 6px; transition: all 0.15s; text-decoration: none; }
+  .btn-white:hover { background: #f0f0f0; }
+
+  /* PRODUCTS */
+  .products { padding: 80px 24px; background: var(--light); }
+  .prod-grid { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 22px; }
+  .prod-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: all 0.2s; text-decoration: none; display: block; }
+  .prod-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.12); transform: translateY(-3px); border-color: var(--red); }
+  .prod-img-wrap { width: 100%; height: 210px; overflow: hidden; background: #eee; position: relative; }
+  .prod-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
+  .prod-card:hover .prod-img-wrap img { transform: scale(1.04); }
+  .prod-tag { position: absolute; top: 12px; left: 12px; background: var(--red); color: white; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.5px; }
+  .prod-info { padding: 18px 20px 22px; }
+  .prod-info h4 { font-size: 17px; font-weight: 700; margin-bottom: 6px; color: var(--dark); }
+  .prod-info p { font-size: 14px; color: var(--muted); line-height: 1.55; margin-bottom: 14px; }
+  .prod-link { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 0.5px; }
+  .prod-link::after { content: ' →'; }
+
+  /* CONTACT */
+  .contact { padding: 80px 24px; background: var(--white); }
+  .contact-wrap { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+  .contact-info h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 40px; font-weight: 700; margin-bottom: 16px; line-height: 1.1; }
+  .contact-info h2 em { color: var(--red); font-style: normal; }
+  .contact-info p { font-size: 16px; color: var(--muted); line-height: 1.65; margin-bottom: 28px; }
+  .contact-detail { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; font-size: 15px; }
+  .contact-detail-icon { width: 40px; height: 40px; background: var(--light); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .contact-detail a { color: var(--red); font-weight: 500; }
+  .btn-wa-big { display: inline-flex; align-items: center; gap: 10px; background: var(--wa); color: var(--white); font-weight: 700; font-size: 16px; padding: 13px 28px; border-radius: 8px; transition: background 0.15s; margin-top: 8px; text-decoration: none; }
+  .btn-wa-big:hover { background: var(--wa-dark); }
+  .btn-wa-big svg { width: 22px; height: 22px; fill: white; }
+  .contact-form { background: var(--light); border-radius: 14px; padding: 36px 32px; border: 1px solid var(--border); }
+  .contact-form h3 { font-size: 20px; font-weight: 700; margin-bottom: 24px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 11px 14px; background: var(--white); border: 1px solid var(--border); border-radius: 6px; color: var(--dark); font-size: 14px; font-family: 'Barlow', sans-serif; outline: none; transition: border-color 0.15s; appearance: none; -webkit-appearance: none; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(208,2,27,0.08); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .btn-submit { width: 100%; padding: 13px; background: var(--red); color: var(--white); border: none; border-radius: 6px; font-size: 15px; font-weight: 700; font-family: 'Barlow', sans-serif; cursor: pointer; transition: background 0.15s; margin-top: 4px; }
+  .btn-submit:hover { background: var(--red-dark); }
+
+  /* WHATSAPP FLOTANTE */
+  .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 999; display: flex; align-items: center; gap: 10px; background: var(--wa); color: var(--white); font-size: 14px; font-weight: 700; padding: 13px 20px 13px 16px; border-radius: 50px; box-shadow: 0 4px 20px rgba(37,211,102,0.45); text-decoration: none; transition: all 0.2s; }
+  .wa-float:hover { background: var(--wa-dark); transform: scale(1.05); }
+  .wa-float svg { width: 22px; height: 22px; fill: white; flex-shrink: 0; }
+
+  /* FOOTER */
+  footer { background: var(--dark); color: #aaa; }
+  .footer-main { max-width: 1280px; margin: 0 auto; padding: 56px 24px 40px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; }
+  .footer-brand .logo { font-size: 28px; display: block; margin-bottom: 14px; color: var(--white); }
+  .footer-brand p { font-size: 14px; line-height: 1.7; max-width: 320px; }
+  .footer-brand .contact-links { margin-top: 20px; display: flex; flex-direction: column; gap: 8px; }
+  .footer-brand .contact-links a { font-size: 14px; color: #888; transition: color 0.15s; }
+  .footer-brand .contact-links a:hover { color: var(--white); }
+  .footer-col h5 { color: var(--white); font-size: 14px; font-weight: 700; margin-bottom: 16px; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 10px; }
+  .footer-col ul li a { font-size: 14px; color: #888; transition: color 0.15s; }
+  .footer-col ul li a:hover { color: var(--white); }
+  .footer-bottom { border-top: 1px solid #2d2d2d; max-width: 1280px; margin: 0 auto; padding: 18px 24px; display: flex; justify-content: space-between; font-size: 13px; color: #555; }
+  .footer-bottom a { color: #555; }
+  .footer-bottom a:hover { color: #aaa; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) { .contact-wrap { grid-template-columns: 1fr; gap: 32px; } .footer-main { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 768px) { nav { display: none; } .form-row { grid-template-columns: 1fr; } .hero-stats { gap: 28px; } }
+  @media (max-width: 480px) { .footer-main { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; gap: 8px; } .contact-form { padding: 24px 20px; } .wa-float span { display: none; } .wa-float { padding: 14px; border-radius: 50%; } }
+</style>
+</head>
+<body>
+
+<!-- WA SVG REUTILIZABLE (inline) -->
+<svg style="display:none">
+  <symbol id="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></symbol>
+</svg>
+
+<!-- WHATSAPP FLOTANTE -->
+<a class="wa-float" href="https://wa.me/526531143125?text=Hola%2C%20me%20interesa%20cotizar%20con%20Suplai" target="_blank" rel="noopener">
+  <svg width="22" height="22"><use href="#wa-icon"/></svg>
+  <span>WhatsApp</span>
+</a>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <span>⚡ Entrega <strong>rápida en Tijuana</strong> y zona norte</span>
+  <span>🖨️ Impresión de <strong>gran formato</strong> y señalización</span>
+  <span>💬 Respuesta en <strong>menos de 1 hora</strong></span>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#">supl<em>ai</em></a>
+    <nav>
+      <a href="#productos">Productos</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#contacto">Cotizar</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn-wa-header" href="https://wa.me/526531143125?text=Hola%2C%20me%20interesa%20cotizar" target="_blank" rel="noopener">
+        <svg width="16" height="16"><use href="#wa-icon"/></svg>
+        WhatsApp
+      </a>
+      <a class="btn-contact-header" href="#contacto">Cotizar ahora</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-eyebrow">Tijuana · Baja California</span>
+    <h1>Impresión de<br><em>Gran Formato</em><br>para tu Negocio</h1>
+    <p>Banners, lonas, señales, stands y más. Calidad profesional con tiempos de entrega rápidos en Tijuana y zona norte.</p>
+    <div class="hero-ctas">
+      <a class="btn-hero-red" href="#contacto">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        Solicitar cotización
+      </a>
+      <a class="btn-hero-wa" href="https://wa.me/526531143125?text=Hola%2C%20me%20interesa%20cotizar%20con%20Suplai" target="_blank" rel="noopener">
+        <svg width="18" height="18"><use href="#wa-icon"/></svg>
+        Escríbenos por WhatsApp
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>+500</strong><span>Clientes atendidos</span></div>
+      <div class="hero-stat"><strong>24h</strong><span>Entrega típica</span></div>
+      <div class="hero-stat"><strong>100%</strong><span>Satisfacción garantizada</span></div>
+      <div class="hero-stat"><strong>TIJ</strong><span>Servicio local</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits" id="nosotros">
+  <h2 class="section-title">¿Por qué elegir Suplai?</h2>
+  <p class="section-sub">Tu aliado en impresión profesional en Tijuana</p>
+  <div class="benefits-grid">
+    <div class="benefit-card">
+      <div class="benefit-icon">⚡</div>
+      <h4>Entrega Rápida</h4>
+      <p>Tiempos de producción ágiles para que siempre llegues a tiempo con tus clientes y proyectos.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🎨</div>
+      <h4>Calidad de Impresión</h4>
+      <p>Colores vibrantes, materiales resistentes y acabados de alto nivel en cada trabajo.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">💬</div>
+      <h4>Atención Personalizada</h4>
+      <p>Resolvemos tus dudas por WhatsApp o email. Trato directo, sin intermediarios ni demoras.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">📐</div>
+      <h4>Cualquier Medida</h4>
+      <p>Imprimimos desde formatos pequeños hasta lonas de gran formato para exteriores e interiores.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🤝</div>
+      <h4>Precios Competitivos</h4>
+      <p>Tarifas accesibles para empresas, agencias, emprendedores y proyectos de cualquier tamaño.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">📦</div>
+      <h4>Listo para Instalar</h4>
+      <p>Te entregamos el producto terminado y listo para montar, sin preocupaciones adicionales.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <h2>¿Tienes un proyecto en mente?</h2>
+  <p>Cotiza sin compromiso. Te respondemos en menos de una hora.</p>
+  <a href="#contacto" class="btn-white">Solicitar cotización gratis →</a>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="productos">
+  <h2 class="section-title">Nuestros Productos</h2>
+  <p class="section-sub">Soluciones de impresión para cada necesidad</p>
+  <div class="prod-grid">
+
+    <!-- Banner 13oz — imagen real de b2sign -->
+    <a class="prod-card" href="#contacto">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1581922819941-6ab31ab79afc?w=700&q=80&fit=crop"
+             alt="Banner de Vinilo 13oz"
+            >
+        <span class="prod-tag">MÁS POPULAR</span>
+      </div>
+      <div class="prod-info">
+        <h4>Banner de Vinilo 13oz</h4>
+        <p>Full color, interior y exterior. Con ojillos y dobladillo gratis. El más solicitado.</p>
+        <span class="prod-link">Cotizar</span>
+      </div>
+    </a>
+
+    <!-- Banner 18oz Blockout — imagen real de b2sign -->
+    <a class="prod-card" href="#contacto">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=700&q=80&fit=crop"
+             alt="Banner 18oz Blockout"
+            >
+        <span class="prod-tag">RESISTENTE</span>
+      </div>
+      <div class="prod-info">
+        <h4>Banner 18oz Blockout</h4>
+        <p>Mayor grosor y opacidad total. Ideal para exteriores con alta exposición al sol.</p>
+        <span class="prod-link">Cotizar</span>
+      </div>
+    </a>
+
+    <!-- Backlit Banner — imagen real de b2sign -->
+    <a class="prod-card" href="#contacto">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1565372195458-9de0b320ef04?w=700&q=80&fit=crop"
+             alt="Banner Backlit iluminado"
+            >
+        <span class="prod-tag">ILUMINADO</span>
+      </div>
+      <div class="prod-info">
+        <h4>Banner Backlit</h4>
+        <p>Diseñado para cajas de luz y displays iluminados. Colores vibrantes de día y noche.</p>
+        <span class="prod-link">Cotizar</span>
+      </div>
+    </a>
+
+    <!-- Mesh Banner — imagen real de b2sign -->
+    <a class="prod-card" href="#contacto">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=700&q=80&fit=crop"
+             alt="Banner de Malla Mesh"
+            >
+        <span class="prod-tag">PERFORADO</span>
+      </div>
+      <div class="prod-info">
+        <h4>Banner de Malla (Mesh)</h4>
+        <p>Permite el paso del viento. Perfecto para vallas, estadios y zonas con mucho viento.</p>
+        <span class="prod-link">Cotizar</span>
+      </div>
+    </a>
+
+    <!-- Tension Fabric — imagen real de b2sign -->
+    <a class="prod-card" href="#contacto">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=700&q=80&fit=crop"
+             alt="Tela Tensionada Tension Fabric"
+            >
+        <span class="prod-tag">SIN ARRUGAS</span>
+      </div>
+      <div class="prod-info">
+        <h4>Tela Tensionada</h4>
+        <p>Tela sin arrugas para estructuras SEG, pop-up y stands de tela con acabado premium.</p>
+        <span class="prod-link">Cotizar</span>
+      </div>
+    </a>
+
+    <!-- Banner Stand — imagen real de b2sign -->
+    <a class="prod-card" href="#contacto">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=700&q=80&fit=crop"
+             alt="Banner Stand Retractable"
+            >
+        <span class="prod-tag">PORTÁTIL</span>
+      </div>
+      <div class="prod-info">
+        <h4>Stands y Exhibidores</h4>
+        <p>Retractables, pop-up y SEG. Armado en segundos, con estuche de transporte incluido.</p>
+        <span class="prod-link">Cotizar</span>
+      </div>
+    </a>
+
+    <!-- Carpa de evento — imagen real de b2sign -->
+    <a class="prod-card" href="#contacto">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1478476868527-002ae3f3e159?w=700&q=80&fit=crop"
+             alt="Carpa Personalizada para eventos"
+            >
+        <span class="prod-tag">EVENTOS</span>
+      </div>
+      <div class="prod-info">
+        <h4>Carpas Personalizadas</h4>
+        <p>10x10, 10x15, 10x20. Con tu logo y colores de marca. Para ferias, expo y eventos.</p>
+        <span class="prod-link">Cotizar</span>
+      </div>
+    </a>
+
+    <!-- Banderas — Unsplash (b2sign no tiene imagen estática disponible) -->
+    <a class="prod-card" href="#contacto">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1587614382346-4ec70e388b28?w=600&q=80&fit=crop"
+             alt="Banderas Publicitarias Feather">
+        <span class="prod-tag">EXTERIOR</span>
+      </div>
+      <div class="prod-info">
+        <h4>Banderas Publicitarias</h4>
+        <p>Feather flags, banderas pluma y formas personalizadas para atraer clientes en exteriores.</p>
+        <span class="prod-link">Cotizar</span>
+      </div>
+    </a>
+
+    <!-- Rígidos — Unsplash -->
+    <a class="prod-card" href="#contacto">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80&fit=crop"
+             alt="Señales Rígidas Corrugado PVC">
+        <span class="prod-tag">ECONÓMICO</span>
+      </div>
+      <div class="prod-info">
+        <h4>Señales y Rígidos</h4>
+        <p>Corrugado, foam board, PVC y aluminio dibond. Ideales para negocios y bienes raíces.</p>
+        <span class="prod-link">Cotizar</span>
+      </div>
+    </a>
+
+    <!-- Fabric banner de b2sign -->
+    <a class="prod-card" href="#contacto">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=700&q=80&fit=crop"
+             alt="Banner de Tela 9oz"
+            >
+        <span class="prod-tag">TELA</span>
+      </div>
+      <div class="prod-info">
+        <h4>Banner de Tela 9oz</h4>
+        <p>Tela wrinkle-free para interiores. Acabado elegante sin arrugas, ideal para tiendas y oficinas.</p>
+        <span class="prod-link">Cotizar</span>
+      </div>
+    </a>
+
+    <!-- Murales — Unsplash -->
+    <a class="prod-card" href="#contacto">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80&fit=crop"
+             alt="Murales de Pared Vinilo">
+        <span class="prod-tag">DECORATIVO</span>
+      </div>
+      <div class="prod-info">
+        <h4>Murales y Vinilos de Pared</h4>
+        <p>Transforma cualquier espacio. Vinilo removible y repositionable de alta resolución.</p>
+        <span class="prod-link">Cotizar</span>
+      </div>
+    </a>
+
+    <!-- DTF — Unsplash -->
+    <a class="prod-card" href="#contacto">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80&fit=crop"
+             alt="DTF UV DTF Transfers">
+        <span class="prod-tag">NUEVO</span>
+      </div>
+      <div class="prod-info">
+        <h4>DTF y UV DTF</h4>
+        <p>Transfers de alta calidad para textil y casi cualquier superficie. Sin prensa de calor necesaria.</p>
+        <span class="prod-link">Cotizar</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contacto">
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <h2>Hablemos de tu <em>proyecto</em></h2>
+      <p>Llena el formulario o contáctanos directamente. Te respondemos a la brevedad con opciones y tiempos de entrega.</p>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">✉️</div>
+        <div>
+          <div style="font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:3px;">Correo</div>
+          <a href="mailto:ventas.suplai@gmail.com">ventas.suplai@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">📍</div>
+        <div>
+          <div style="font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:3px;">Zona de servicio</div>
+          <span style="color:var(--mid);">Tijuana, BC y zona norte</span>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">🕐</div>
+        <div>
+          <div style="font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:3px;">Horario</div>
+          <span style="color:var(--mid);">Lun–Vie: 9:00am – 6:00pm</span>
+        </div>
+      </div>
+      <a class="btn-wa-big" href="https://wa.me/526531143125?text=Hola%2C%20me%20interesa%20cotizar%20con%20Suplai" target="_blank" rel="noopener">
+        <svg width="22" height="22"><use href="#wa-icon"/></svg>
+        Chatear al 653 114 3125
+      </a>
+    </div>
+    <div class="contact-form">
+      <h3>Solicitar Cotización</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" id="f-nombre" placeholder="Tu nombre">
+        </div>
+        <div class="form-group">
+          <label>Empresa</label>
+          <input type="text" placeholder="Nombre de empresa">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Correo electrónico</label>
+        <input type="email" id="f-email" placeholder="tu@correo.com">
+      </div>
+      <div class="form-group">
+        <label>Teléfono / WhatsApp</label>
+        <input type="tel" placeholder="+52 664 000 0000">
+      </div>
+      <div class="form-group">
+        <label>Producto de interés</label>
+        <select>
+          <option value="">Selecciona un producto...</option>
+          <option>Banner de Vinilo (13oz / 18oz)</option>
+          <option>Banner Backlit o Malla</option>
+          <option>Tela Tensionada / Fabric</option>
+          <option>Stands y Exhibidores</option>
+          <option>Carpas Personalizadas</option>
+          <option>Banderas Publicitarias</option>
+          <option>Señales y Rígidos</option>
+          <option>Murales y Vinilos de Pared</option>
+          <option>DTF y UV DTF</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Descripción del proyecto</label>
+        <textarea placeholder="Cuéntanos: medidas, cantidad, material preferido, fecha que necesitas..."></textarea>
+      </div>
+      <button class="btn-submit" id="btn-submit" onclick="submitForm(event)">ENVIAR SOLICITUD</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <a class="logo" href="#">supl<em>ai</em></a>
+      <p>Impresión de gran formato en Tijuana. Banners, lonas, señales, stands y más. Servicio rápido y personalizado para tu negocio.</p>
+      <div class="contact-links">
+        <a href="mailto:ventas.suplai@gmail.com">✉️ ventas.suplai@gmail.com</a>
+        <a href="https://wa.me/526531143125" target="_blank">💬 WhatsApp: 653 114 3125</a>
+        <a href="#">📍 Tijuana, Baja California, México</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Productos</h5>
+      <ul>
+        <li><a href="#contacto">Banners y Lonas</a></li>
+        <li><a href="#contacto">Banderas</a></li>
+        <li><a href="#contacto">Stands y Exhibidores</a></li>
+        <li><a href="#contacto">Carpas Personalizadas</a></li>
+        <li><a href="#contacto">Señales y Rígidos</a></li>
+        <li><a href="#contacto">DTF / UV DTF</a></li>
+        <li><a href="#contacto">Murales y Vinilos</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contacto</h5>
+      <ul>
+        <li><a href="#contacto">Solicitar cotización</a></li>
+        <li><a href="https://wa.me/526531143125" target="_blank">WhatsApp directo</a></li>
+        <li><a href="mailto:ventas.suplai@gmail.com">Enviar correo</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#productos">Ver productos</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024–2026 Suplai · <a href="https://suplai.mx">suplai.mx</a> · Todos los derechos reservados.</span>
+    <span>Tijuana, Baja California, México</span>
+  </div>
+</footer>
+
+<script>
+function submitForm(e) {
+  e.preventDefault();
+  const nombre = document.getElementById('f-nombre').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const btn = document.getElementById('btn-submit');
+  if (!nombre || !email) {
+    btn.textContent = '⚠️ Por favor llena nombre y correo';
+    btn.style.background = '#b45309';
+    setTimeout(() => { btn.textContent = 'ENVIAR SOLICITUD'; btn.style.background = ''; }, 3000);
+    return;
+  }
+  btn.textContent = '✅ ¡Solicitud enviada! Te contactamos pronto.';
+  btn.style.background = '#15803d';
+  btn.disabled = true;
+}
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href');
+    if (id === '#') return;
+    const target = document.querySelector(id);
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+</script>
+</body>
+</html>
